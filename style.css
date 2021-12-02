@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: lightblue;
+}
+
+header {
+    background-color: greenyellow;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+main{    
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+footer {
+    background-color: indianred;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    height: 50px;
+}

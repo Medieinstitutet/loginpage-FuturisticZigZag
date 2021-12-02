@@ -4,14 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Övning: Kommer du ihåg vad jag heter?</title>
+    <title>Inlämningsuppgift - Inloggningssida</title>
+    <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
-    <h1>Skriv något?</h1>
-    <input id="userInput" type = "text" placeholder="Skriv något här.. Or else!">
-    <button id="btn">Skicka!</button>
-    <div id="output">
-    </div>
+    <header>
+        <div id="logotype">
+            LOGOTYP            
+        </div>
+        <div id="logInlogOut">            
+        </div>
+    </header>
+    
+    <main id="main">
+        <h1 id="headingText">Hej och välkommen!</h1>
+        <p id="callToAction">Vänligen logga in eller registrera dig nedan om du är en ny användare!</p>
+        <form>
+            <label>Användarnamn:</label><br>
+            <input placeholder="Nytt Användarnamn"><br><br>
+            <label>Lösenord:</label><br>
+            <input type="password" placeholder="Lösenord">
+        </form>
+        <br>
+        <button>Registrera mig!</button>
+    </main>
+
+    <footer>Footer: Skall alltid vara synlig!</footer>    
 </body>
 </html>
