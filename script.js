@@ -2,6 +2,7 @@
 //placeholder uppgifter
 const username = "aaa";
 const password = "123";
+const loginStatus = localStorage.getItem("loginStatus");
 
 //============
 //EJ INLOGGAD:
@@ -28,6 +29,9 @@ function notLoggedIn() {
         let usernameInput = usernameInputField.value
         let passwordInput = passwordInputField.value
 
+        //Ändrar status på inlogningen så att rätt vy kan visas
+        localStorage.setItem("loginStatus", "yes");
+
         //Om rätt uppgifter byt vy till INLOGGAD
         if(usernameInput == username && passwordInput == password) {
             usernameInputField.remove();
@@ -36,13 +40,24 @@ function notLoggedIn() {
             LoggedIn();
 
         //Om fel uppgifter byt vy till FEL INLOGGNING    
-        } else {
+        } else {  
+            //Ändrar status på inlogningen så att rätt vy kan visas
+            localStorage.setItem("loginStatus", "no");  
+
             wrongLogin();
         }
     })
 };
-notLoggedIn();
 
+//Visar rätt vy beroende på inlognings status (Viktigast att logged in vyn inte försvinner efter en refresh)
+if (loginStatus == "no"){
+    notLoggedIn();
+} else {
+    LoggedIn();
+}
+
+
+    
 
 //Main - Uppmana användaren att logga in, registrerings fält
  
@@ -76,7 +91,11 @@ function LoggedIn(){
     document.getElementById("main").innerHTML = "Välkommen 'username'!"
 
     //Vid click byt vy till EJ INLOGGAD
-    logOutButton.addEventListener("click", () => {     
+    logOutButton.addEventListener("click", () => { 
+
+        //Ändrar status på inlogningen så att rätt vy kan visas       
+        localStorage.setItem("loginStatus", "no");
+        
         logOutButton.remove();  
         notLoggedIn();
         location.reload();
