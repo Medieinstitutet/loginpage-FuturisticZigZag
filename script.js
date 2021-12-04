@@ -1,8 +1,20 @@
 //======LOCAL STORAGE UPPGIFTER=======
-//placeholder uppgifter
-const username = "aaa";
-const password = "123";
 const loginStatus = localStorage.getItem("loginStatus");
+
+const storedUsers = [
+    {
+    "username": "aaa",
+    "password": "123"
+    },
+    {
+    "username": "bbb",
+    "password": "12345"
+    },
+    {
+    "username": "bbb",
+    "password": "666"
+    }
+];
 
 //============
 //EJ INLOGGAD:
@@ -33,7 +45,12 @@ function notLoggedIn() {
         localStorage.setItem("loginStatus", "yes");
 
         //Om rätt uppgifter byt vy till INLOGGAD
-        if(usernameInput == username && passwordInput == password) {
+        let currentUser = storedUsers.filter(function(user) {
+            return user.username == usernameInput && user.password == passwordInput;
+        })
+
+
+        if(currentUser.length) {
             usernameInputField.remove();
             passwordInputField.remove();
             loginButton.remove();
@@ -62,7 +79,19 @@ if (loginStatus == "no"){
 //Main - Uppmana användaren att logga in, registrerings fält
  
 
-        //Fånga upp användar uppgifter med click
+//Fånga upp användar uppgifter med click
+let userNameReg = document.getElementById("userNameReg");
+let userPasswordReg = document.getElementById("userPasswordReg");
+let regBtn = document.getElementById("regBtn");
+
+regBtn.addEventListener("click", () => {
+    let userInputValue = {
+        "username": document.getElementById("userNameReg").value,
+        "password": document.getElementById("userPasswordReg").value
+    };
+    storedUsers.push(userInputValue);
+    console.log(storedUsers);
+})
 
             //Hämta local storage uppgifter
 
