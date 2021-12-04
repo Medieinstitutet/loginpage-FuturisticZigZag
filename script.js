@@ -66,6 +66,9 @@ function notLoggedIn() {
         //Ändrar status på inlogningen så att rätt vy kan visas
         localStorage.setItem("loginStatus", "yes");
 
+        //Sparar angivna användarnamnet i LS
+        localStorage.setItem("loggedInCurrentUser", usernameInput);
+
         //Kollar så att user input matchar med användare i array
         let getStoredUsersLS = JSON.parse(localStorage.getItem("storedUsers"))
 
@@ -157,8 +160,9 @@ function LoggedIn(){
     logOutButton.innerText = "Logga Ut";
     document.getElementById("logInlogOut").append(logOutButton);
 
-    //Main - Välkomna "Username"
-    document.getElementById("main").innerHTML = "Välkommen 'username'!"
+    //Välkomna "Username"
+    let userToDisplay = localStorage.getItem("loggedInCurrentUser");    
+    document.getElementById("main").innerHTML = `Välkommen ${userToDisplay}`;
 
     //Vid click byt vy till EJ INLOGGAD
     logOutButton.addEventListener("click", () => { 
