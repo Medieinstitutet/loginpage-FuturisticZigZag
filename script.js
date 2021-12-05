@@ -34,9 +34,12 @@ firstLS();
 
 //let getStoredUsersLS = JSON.parse(localStorage.getItem("storedUsers"))
 
-function saveStoredUsersLS() {
-     localStorage.setItem("storedUsers", JSON.stringify(getStoredUsersLS));
-};
+//Visar rätt vy beroende på inlognings status 
+if (loginStatus == "yes"){
+    LoggedIn();
+} else {
+    notLoggedIn();
+}
 
 //============
 //EJ INLOGGAD:
@@ -44,7 +47,7 @@ function saveStoredUsersLS() {
 
 //Skapa logIN fält i header
 function notLoggedIn() {
-    //===Användar namn fält
+    //===Användarnamn fält
     let usernameInputField = document.createElement("input");
         usernameInputField.placeholder = "Användarnamn";
 
@@ -93,12 +96,7 @@ function notLoggedIn() {
     })
 };
 
-//Visar rätt vy beroende på inlognings status 
-if (loginStatus == "yes"){
-    LoggedIn();
-} else {
-    notLoggedIn();
-}
+
 
 
 //========
@@ -120,14 +118,25 @@ regBtn.addEventListener("click", () => {
         "username": document.getElementById("userNameReg").value,
         "password": document.getElementById("userPasswordReg").value
     };
-    
+
+    //Jämför vald användarnamn med existerande användarnamn
+    let getStoredUsersLS = JSON.parse(localStorage.getItem("storedUsers"))
+    let existingUser = getStoredUsersLS.filter(function(user) {
+        return user.username == userInputValueName;
+    })
+   
+    //Kolla om fälten är toma
     if((userInputValueName == "" && userInputValuePass == "") || userInputValueName == "" || userInputValuePass == "") {
-        
-        //Kolla om fälten är toma
         let callToAction = document.getElementById("callToAction");
         callToAction.innerText = "Vänligen välj ett Anvädarnamn och Lösenord!"    
         document.getElementById("callToAction").style.color = "red";
 
+    //Varnar användaren om användarnamnet är redan upptaget
+    } else if(existingUser.length) {
+        let callToAction = document.getElementById("callToAction");
+        callToAction.innerText = "Användarnamnet är upptaget!"    
+        document.getElementById("callToAction").style.color = "red";
+        
     } else {
         //Bekräftar registreringen
         let callToAction = document.getElementById("callToAction");
@@ -135,7 +144,7 @@ regBtn.addEventListener("click", () => {
         document.getElementById("callToAction").style.color = "green";
 
         //Hämtar local storage uppgifter
-        getStoredUsersLS = JSON.parse(localStorage.getItem("storedUsers"))
+        let getStoredUsersLS = JSON.parse(localStorage.getItem("storedUsers"))
 
         //Pushar variabeln med uppgifterna in i LS array
         getStoredUsersLS.push(userInputValue);
@@ -143,7 +152,7 @@ regBtn.addEventListener("click", () => {
         console.log(getStoredUsersLS);
 
         //Sparar nya array i LS
-        saveStoredUsersLS();
+        localStorage.setItem("storedUsers", JSON.stringify(getStoredUsersLS));
         }
 
 })
@@ -155,7 +164,7 @@ regBtn.addEventListener("click", () => {
 //Skapa logOUT knapp i header
 function LoggedIn(){
 
-    //===Login knapp
+    //===Logout knapp
     let logOutButton = document.createElement("button");
     logOutButton.innerText = "Logga Ut";
     document.getElementById("logInlogOut").append(logOutButton);
